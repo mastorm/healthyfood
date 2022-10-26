@@ -1,24 +1,12 @@
-import { agriApi } from "./api";
+import { use } from "react";
 import "./globals.css";
+import { getFruitsAndVeggies } from "../modules/veggies";
 
-interface FruitOrVegetable {
-  product: string;
-  productGroupCode: string;
-}
-
-async function getFruitsAndVeggies() {
-  const res = await fetch(agriApi("fruitAndVegetable/products"));
-
-  return (await res.json()) as FruitOrVegetable[];
-}
-
-export default async function Home() {
-  const veggies = await getFruitsAndVeggies();
+export default function Home() {
+  const veggies = use(getFruitsAndVeggies());
   return (
-    <ul>
-      {veggies.map((x) => (
-        <li key={x.productGroupCode}>{x.product}</li>
-      ))}
-    </ul>
+    <main>
+      <h1>All this stuff will make you feel good 🍉</h1>
+    </main>
   );
 }
